@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
+import wifeybot.suggestions.SuggestionsCommand;
 
 import javax.security.auth.login.LoginException;
 
@@ -19,7 +20,7 @@ public class WifeyBot {
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
         jda.getPresence().setActivity(Activity.watching("42 LIFEHACKS TO MAKE YOUR LIFE EASIER!"));
 
-        jda.addEventListener(new Commands());
+        jda.addEventListener(new GuildMessageReceived());
 
 
     }
