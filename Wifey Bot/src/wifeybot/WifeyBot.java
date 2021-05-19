@@ -14,7 +14,7 @@ public class WifeyBot {
     // Main method
     public static void main(String[] args) throws LoginException {
 
-        String token = "ODQxNzk3MDQ4MDE2OTYxNTg3.YJr-mA.GmNRhbHHUhMPAcTHXph7nSN6z1U";
+        String token = "Not For Your Eyes";
         jda = JDABuilder.createDefault(token).build();
         jda.getPresence().setStatus(OnlineStatus.ONLINE);
         jda.getPresence().setActivity(Activity.watching("42 LIFEHACKS TO MAKE YOUR LIFE EASIER!"));
