@@ -1,6 +1,7 @@
 package wifeybot.suggestions;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import wifeybot.WifeyBot;
@@ -11,6 +12,9 @@ import java.util.Arrays;
 import static wifeybot.utils.Utils.sendMessageDelayed;
 
 public class SuggestionsCommand {
+
+    //approveSuggestionsMessage is the message sent to the #approve-suggestions text channel.
+    public static Message approveSuggestionsMessage;
 
     public static void onSuggestionsCommandReceived(GuildMessageReceivedEvent event, String[] args) {
 
@@ -55,9 +59,13 @@ public class SuggestionsCommand {
             TextChannel suggestions = event.getGuild().getTextChannelById("844253622409625670");
 
             assert suggestions != null;
-            suggestions.sendMessage(suggest.build()).queue();
+            suggestions.sendMessage(suggest.build()).queue(message -> {
+                approveSuggestionsMessage = message.getReferencedMessage();
+                message.addReaction("upvote:844408804678434846").queue();
+                message.addReaction("downvote:844408842737025054").queue();
+                message.addReaction("edit:844562514179391538").queue();
+            });
             suggest.clear();
-
 
             suggest.addField("**<:logo:842453310585045043> Suggestion Command Success!**", "Thank you for your suggestion, it has been successfully " +
                     "forwarded to the admins and if it is deemed an acceptable suggestion, you will likely see it in <#841314032349872218> shortly!", false);

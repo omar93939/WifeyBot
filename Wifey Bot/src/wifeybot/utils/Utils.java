@@ -9,14 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
-    public static void sendMessageDelayed(GuildMessageReceivedEvent event, CharSequence message, int delaySeconds) {
-        RestAction<Message> action = event.getChannel().sendMessage(message);
+    public static void sendMessageDelayed(GuildMessageReceivedEvent event, CharSequence charSequence, int delaySeconds) {
+        RestAction<Message> action = event.getChannel().sendMessage(charSequence);
         action.queue((msg) -> msg.delete().queueAfter(delaySeconds, TimeUnit.SECONDS));
 
         deleteAfter(event.getMessage(), delaySeconds);
     }
-    public static void sendMessageDelayed(GuildMessageReceivedEvent event, MessageEmbed message, int delaySeconds) {
-        RestAction<Message> action = event.getChannel().sendMessage(message);
+    public static void sendMessageDelayed(GuildMessageReceivedEvent event, MessageEmbed messageEmbed, int delaySeconds) {
+        RestAction<Message> action = event.getChannel().sendMessage(messageEmbed);
         action.queue((msg) -> msg.delete().queueAfter(delaySeconds, TimeUnit.SECONDS));
 
         deleteAfter(event.getMessage(), delaySeconds);
