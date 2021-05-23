@@ -4,13 +4,13 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import wifeybot.utils.DelayedMessage;
 
 import java.awt.*;
 import java.util.Objects;
 
 import static wifeybot.GuildMessageReactionAdd.*;
 import static wifeybot.suggestions.SuggestionsCommand.onSuggestionsCommandReceived;
-import static wifeybot.utils.Utils.sendMessageDelayed;
 
 public class GuildMessageReceived extends ListenerAdapter {
 
@@ -26,7 +26,7 @@ public class GuildMessageReceived extends ListenerAdapter {
                     "subreddit's native Discord server\n\nTo visit the WifeyTalk subreddit, go to reddit.com/r/WifeyTalk", false);
             info.setColor(Color.decode("#ffa2fc"));
 
-            sendMessageDelayed(event, info.build(), 20);
+            DelayedMessage.sendMessageDelayedDelete(event, info.build(), 20);
             info.clear();
 
         } else if (args[0].equalsIgnoreCase(WifeyBot.prefix + "suggest")) {
