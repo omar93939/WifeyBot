@@ -2,8 +2,7 @@ package wifeybot.utils;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import wifeybot.WifeyBot;
-import wifeybot.music.PlayCommand;
-import wifeybot.music.StopCommand;
+import wifeybot.music.*;
 //import wifeybot.music.Play;
 
 import javax.annotation.Nullable;
@@ -19,6 +18,9 @@ public class CommandManager {
     public CommandManager() {
         addCommand(new PlayCommand());
         addCommand(new StopCommand());
+        addCommand(new SkipCommand());
+        addCommand(new NowPlayingCommand());
+        addCommand(new QueueCommand());
         //addCommand(new Play());
     }
 

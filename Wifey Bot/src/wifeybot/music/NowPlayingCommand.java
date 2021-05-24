@@ -1,5 +1,8 @@
 package wifeybot.music;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
@@ -8,13 +11,14 @@ import wifeybot.utils.MyCommand;
 
 import java.awt.*;
 
+import static wifeybot.music.QueueCommand.formatTime;
 import static wifeybot.utils.DelayedMessage.sendMessageDelayedDelete;
 
-public class StopCommand implements MyCommand {
+public class NowPlayingCommand implements MyCommand {
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     public void handle(CommandContext ctx) {
+
         if (ctx.getChannel().getName().equals("music-bot")) {
             final Member self = ctx.getSelfMember();
             final GuildVoiceState selfVoiceState = self.getVoiceState();
@@ -53,16 +57,27 @@ public class StopCommand implements MyCommand {
             }
 
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+            final AudioPlayer audioPlayer = musicManager.audioPlayer;
+            final AudioTrack track = audioPlayer.getPlayingTrack();
 
-            musicManager.scheduler.player.stopTrack();
-            musicManager.scheduler.queue.clear();
+            if (track == null) {
+                EmbedBuilder inVoiceChannel = new EmbedBuilder();
+                inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>There is no Track playing currently!**");
+                inVoiceChannel.setColor(Color.decode("#ffa2fc"));
 
-            EmbedBuilder inVoiceChannel = new EmbedBuilder();
-            inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>The player has been stopped and the queue has been cleared!**");
-            inVoiceChannel.setColor(Color.decode("#ffa2fc"));
+                sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);
+                inVoiceChannel.clear();
+                return;
+            }
 
-            sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);
-            inVoiceChannel.clear();
+            final AudioTrackInfo info = track.getInfo();
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.addField("**<:logo:842453310585045043> Now playing:**","\u200b\n[" + info.title + "](" + info.uri + ")\n`" + formatTime(info.length) + "`", false);
+            builder.setColor(Color.decode("#ffa2fc"));
+
+            sendMessageDelayedDelete(ctx.getEvent(), builder.build(), 15);
+            builder.clear();
         } else {
             EmbedBuilder inVoiceChannel = new EmbedBuilder();
             inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>You cannot use this command here!**");
@@ -71,16 +86,15 @@ public class StopCommand implements MyCommand {
             sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);
             inVoiceChannel.clear();
         }
-
     }
 
     @Override
     public String getName() {
-        return "stop";
+        return "nowplaying";
     }
 
     @Override
     public String getHelp() {
-        return "Stops the current song and clears the queue";
+        return "Shows the song which is currently playing";
     }
 }

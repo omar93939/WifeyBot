@@ -1,8 +1,10 @@
 package wifeybot.music;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
 import wifeybot.utils.CommandContext;
 import wifeybot.utils.MyCommand;
 
@@ -10,11 +12,12 @@ import java.awt.*;
 
 import static wifeybot.utils.DelayedMessage.sendMessageDelayedDelete;
 
-public class StopCommand implements MyCommand {
+public class SkipCommand implements MyCommand {
 
     @SuppressWarnings("ConstantConditions")
     @Override
     public void handle(CommandContext ctx) {
+
         if (ctx.getChannel().getName().equals("music-bot")) {
             final Member self = ctx.getSelfMember();
             final GuildVoiceState selfVoiceState = self.getVoiceState();
@@ -53,12 +56,21 @@ public class StopCommand implements MyCommand {
             }
 
             final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+            final AudioPlayer audioPlayer = musicManager.audioPlayer;
 
-            musicManager.scheduler.player.stopTrack();
-            musicManager.scheduler.queue.clear();
+            if (audioPlayer.getPlayingTrack() == null) {
+                EmbedBuilder inVoiceChannel = new EmbedBuilder();
+                inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>There is no Track playing currently!**");
+                inVoiceChannel.setColor(Color.decode("#ffa2fc"));
 
+                sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);
+                inVoiceChannel.clear();
+                return;
+            }
+
+            musicManager.scheduler.nextTrack();
             EmbedBuilder inVoiceChannel = new EmbedBuilder();
-            inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>The player has been stopped and the queue has been cleared!**");
+            inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>Skipped the Track!**");
             inVoiceChannel.setColor(Color.decode("#ffa2fc"));
 
             sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);
@@ -72,15 +84,16 @@ public class StopCommand implements MyCommand {
             inVoiceChannel.clear();
         }
 
+
     }
 
     @Override
     public String getName() {
-        return "stop";
+        return "skip";
     }
 
     @Override
     public String getHelp() {
-        return "Stops the current song and clears the queue";
+        return "Skips the current track";
     }
 }

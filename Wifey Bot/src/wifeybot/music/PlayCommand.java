@@ -77,7 +77,7 @@ public class PlayCommand implements MyCommand {
             audioManager.openAudioConnection(memberChannel);
 
             EmbedBuilder inVoiceChannel = new EmbedBuilder();
-            inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>Connecting to \uD83D\uDD0A-" + memberChannel.getName() + "...**");
+            inVoiceChannel.setTitle("**<:embedlogo:842456943997747260>Connecting to " + memberChannel.getAsMention() + "...**");
             inVoiceChannel.setColor(Color.decode("#ffa2fc"));
 
             sendMessageDelayedDelete(ctx.getEvent(), inVoiceChannel.build(), 15);

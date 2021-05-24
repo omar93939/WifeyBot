@@ -1,35 +1,41 @@
-wifeybot/GuildMessageReceived.java
- wifeybot.GuildMessageReceived
-wifeybot/utils/CommandContext.java
- wifeybot.utils.CommandContext
-wifeybot/utils/MyCommandContext.java
- wifeybot.utils.MyCommandContext
-wifeybot/deprecated/Rules.java
- wifeybot.deprecated.Rules
-wifeybot/WifeyBot.java
- wifeybot.WifeyBot
-wifeybot/music/AudioPlayerSendHandler.java
- wifeybot.music.AudioPlayerSendHandler
 wifeybot/GuildMessageReactionAdd.java
  wifeybot.GuildMessageReactionAdd
-wifeybot/utils/MyCommand.java
- wifeybot.utils.MyCommand
-wifeybot/utils/DelayedMessage.java
- wifeybot.utils.DelayedMessage
-wifeybot/suggestions/SuggestionsCommand.java
- wifeybot.suggestions.SuggestionsCommand
 wifeybot/utils/CommandManagerListener.java
  wifeybot.utils.CommandManagerListener
 wifeybot/music/GuildMusicManager.java
  wifeybot.music.GuildMusicManager
 wifeybot/music/TrackScheduler.java
  wifeybot.music.TrackScheduler
-wifeybot/utils/CommandManager.java
- wifeybot.utils.CommandManager
-wifeybot/music/StopCommand.java
- wifeybot.music.StopCommand
+wifeybot/WifeyBot.java
+ wifeybot.WifeyBot
+wifeybot/deprecated/Rules.java
+ wifeybot.deprecated.Rules
+wifeybot/music/AudioPlayerSendHandler.java
+ wifeybot.music.AudioPlayerSendHandler
 wifeybot/music/PlayerManager.java
  wifeybot.music.PlayerManager
  wifeybot.music.PlayerManager$1
+wifeybot/utils/MyCommand.java
+ wifeybot.utils.MyCommand
+wifeybot/utils/DelayedMessage.java
+ wifeybot.utils.DelayedMessage
 wifeybot/music/PlayCommand.java
  wifeybot.music.PlayCommand
+wifeybot/suggestions/SuggestionsCommand.java
+ wifeybot.suggestions.SuggestionsCommand
+wifeybot/utils/MyCommandContext.java
+ wifeybot.utils.MyCommandContext
+wifeybot/GuildMessageReceived.java
+ wifeybot.GuildMessageReceived
+wifeybot/utils/CommandContext.java
+ wifeybot.utils.CommandContext
+wifeybot/music/SkipCommand.java
+ wifeybot.music.SkipCommand
+wifeybot/music/StopCommand.java
+ wifeybot.music.StopCommand
+wifeybot/music/QueueCommand.java
+ wifeybot.music.QueueCommand
+wifeybot/music/NowPlayingCommand.java
+ wifeybot.music.NowPlayingCommand
+wifeybot/utils/CommandManager.java
+ wifeybot.utils.CommandManager
